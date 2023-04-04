@@ -1,8 +1,11 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonModal } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 
 const Home: React.FC = () => {
+  const [present, dismiss] = useIonModal(({ name }) => <div>Hello {name}.</div>, {
+    name: 'Dave',
+  });
   return (
     <IonPage>
       <IonHeader>
@@ -16,7 +19,9 @@ const Home: React.FC = () => {
             <IonTitle size="large">Blank</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer />
+        <button data-testid="open-modal-button" onClick={() => present({ htmlAttributes: {
+          'data-testid': 'modal-element'
+        }})}>Open Modal</button>
       </IonContent>
     </IonPage>
   );
